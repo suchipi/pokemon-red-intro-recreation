@@ -18,8 +18,8 @@ import {
 } from "@hex-engine/2d";
 import introCopyright from "./intro-copyright.aseprite";
 import introStar from "./intro-star.aseprite";
-// import gameFreakImage from "./game-freak-image.aseprite";
-// import gameFreakText from "./game-freak-text.aseprite";
+import gameFreakImage from "./game-freak-image.aseprite";
+import gameFreakText from "./game-freak-text.aseprite";
 import screenSize from "../screen-size";
 
 function Blank() {
@@ -123,9 +123,21 @@ function Star() {
   );
 }
 
-// function GameFreakLogo() {
-//   useType(GameFreakLogo);
-// }
+function GameFreakLogo() {
+  useType(GameFreakLogo);
+
+  const imageSprite = useNewComponent(() => Aseprite(gameFreakImage));
+  const textSprite = useNewComponent(() => Aseprite(gameFreakText));
+
+  const geometry = useNewComponent(() =>
+    Geometry({
+      shape: new Polygon([new Point(0, 0)]),
+      position: screenSize.divide(2),
+    })
+  );
+
+  useDraw(() => {});
+}
 
 function Widescreen() {
   useType(Widescreen);
@@ -154,8 +166,8 @@ export default function Intro() {
   const screens = useNewComponent(() =>
     Animation<() => { destroy: () => void }>(
       [
-        new AnimationFrame(Blank, { duration: 1000 }),
-        new AnimationFrame(Copyright, { duration: 3000 }),
+        // new AnimationFrame(Blank, { duration: 1000 }),
+        // new AnimationFrame(Copyright, { duration: 3000 }),
         new AnimationFrame(Widescreen, { duration: 3000 }),
       ],
       { loop: false }

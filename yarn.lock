@@ -817,13 +817,13 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
-"@hex-engine/2d@^0.1.3":
-  version "0.1.3"
-  resolved "https://registry.yarnpkg.com/@hex-engine/2d/-/2d-0.1.3.tgz#1d2bb166347cfa921b12d6dbf024adff5564fbfd"
-  integrity sha512-jnPxJnKrQ02U+O9eLf+wfFBkyyCg5UJ/m3F96gxZPmVtbNr3m6jN7lH0nVPii3y6FTh1at8BCVjQqRE+1wsbLw==
+"@hex-engine/2d@^0.1.8":
+  version "0.1.8"
+  resolved "https://registry.yarnpkg.com/@hex-engine/2d/-/2d-0.1.8.tgz#ceaf2ed2aec15ae4e23fb0d93a2fe3b3daec71d7"
+  integrity sha512-sBy+4ouQhQZ2MeHk7oMU2Cv7g74trF4m6LRrLLFck8wRp3tG+IkOu3AbWmj807R+Wsk/ffq7Oa1QLNG38/tGgw==
   dependencies:
-    "@hex-engine/core" "0.1.0"
-    "@hex-engine/inspector" "0.1.0"
+    "@hex-engine/core" "^0.1.1"
+    "@hex-engine/inspector" "^0.1.3"
     "@types/matter-js" "^0.10.7"
     layout-bmfont-text "^1.3.4"
     matter-js "^0.14.2"
@@ -831,23 +831,23 @@
     modal-synthesis "^0.1.2"
     poly-decomp "^0.3.0"
 
-"@hex-engine/core@0.1.0":
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/@hex-engine/core/-/core-0.1.0.tgz#bd707a3ac39220e8bb987274947cbe845c476ca1"
-  integrity sha512-3SeW3sw6uT8z78HPZPXs7p8MeQNBYPBRmThPTALnuTDB3+04WDN0nPpZ04Va6eV61qqYlnPF/Ta86LGrXYrncw==
+"@hex-engine/core@^0.1.1":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@hex-engine/core/-/core-0.1.1.tgz#7c2f7453264d3b01e61a43e56da803fa7dc0c9dc"
+  integrity sha512-HmjC+LYU+9l4j0awnnEG3+3N6th1UNPe+NzzOIKNE76/HdPWb006JcYiFGLNv5R3yY3bCtHG5mkw9edlEA9ytA==
   dependencies:
     concubine "^1.0.2"
 
-"@hex-engine/inspector@0.1.0":
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/@hex-engine/inspector/-/inspector-0.1.0.tgz#6916e9f8da825d09660da83342df4bc95282d80d"
-  integrity sha512-hYaJYT0ElUJt9g1mTIviGNvgQJdF4FbSwgojXcWamLyC7dd1HDoCaHl8yBBoSOtlPvduzLc1m5NUvN4HCdcAMw==
+"@hex-engine/inspector@^0.1.3":
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/@hex-engine/inspector/-/inspector-0.1.3.tgz#8944ec34329bdc1c87a9976f9b28bafcc0fe68c6"
+  integrity sha512-eDQESoFBagj/vTCbRHOuFFZWghy7k13Aa4ts/3IsiUVpTh27nBWxxm3ZFrPWzIfBSY24kHjG8umhkQUvxna+3Q==
   dependencies:
-    "@hex-engine/core" "0.1.0"
+    "@hex-engine/core" "^0.1.1"
     lodash.debounce "^4.0.8"
     react "^16.12.0"
     react-dom "^16.12.0"
-    react-state-tree "^0.1.1"
+    react-state-tree "^0.1.2"
     use-force-update "^1.0.7"
 
 "@mrmlnc/readdir-enhanced@^2.2.1":
@@ -3106,10 +3106,10 @@ he@1.2.x:
   resolved "https://registry.yarnpkg.com/he/-/he-1.2.0.tgz#84ae65fa7eafb165fddb61566ae14baf05664f0f"
   integrity sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==
 
-hex-engine-scripts@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/hex-engine-scripts/-/hex-engine-scripts-0.1.0.tgz#39acf77aa10d8d909b2e3447ccbde79ecb82f2f6"
-  integrity sha512-uKhjy+TKLT5C8hSUcu9wl3ojeAU1k879j0WJTz1VC/tHavuowGg4VvbweWpWDoGGuX8JRrUtzlD4qpQd3GZauA==
+hex-engine-scripts@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/hex-engine-scripts/-/hex-engine-scripts-0.1.1.tgz#7361dfb6ec19093a7eafe3fea3d2265e3c7c5405"
+  integrity sha512-relb01HlT/LbId7lQ3VQVzJ+y6aPVEEHxNLlD/ofaR4+/849R34nede5rWe2mn1D2/S5sfpmqM8kVjNV5fAwUQ==
   dependencies:
     "@babel/core" "^7.8.3"
     "@babel/plugin-proposal-class-properties" "^7.8.3"
@@ -4887,10 +4887,10 @@ react-is@^16.8.1:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.12.0.tgz#2cc0fe0fba742d97fd527c42a13bec4eeb06241c"
   integrity sha512-rPCkf/mWBtKc97aLL9/txD8DZdemK0vkA3JMLShjlJB3Pj3s+lpf1KaBzMfQrAmhMQB0n1cU/SUGgKKBCe837Q==
 
-react-state-tree@^0.1.1:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/react-state-tree/-/react-state-tree-0.1.1.tgz#840397a0de8f41c7db267ff0e8fc983dade1cf74"
-  integrity sha512-7o0l8Ly1eBO2MQewI1AmBbXyGZLYhJCOfadnfifFAO5atLehmAhyR/YW+tyhiC1KhWGyZxIAzAkIZUjRY7///w==
+react-state-tree@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/react-state-tree/-/react-state-tree-0.1.2.tgz#32e494f1de8fd411be9a4e361a3e7c36798c8aea"
+  integrity sha512-iELapjaPLQoIqSkePZgk/O+3MOz0iCKuGCuWf0tTvYBpp2eb2a6Bnp1SrotZNczW2P47yn64HVdNtcpLJRqM3Q==
   dependencies:
     "@types/lodash" "^4.14.149"
     "@types/react" "^16.8.8"
