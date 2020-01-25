@@ -24,6 +24,7 @@ import gameFreakText from "./game-freak-text.aseprite";
 import gameFreakStars from "./game-freak-stars.aseprite";
 import screenSize from "../screen-size";
 import palette from "../palette";
+import useZIndex from "../useZIndex";
 
 function Blank() {
   useType(Blank);
@@ -55,6 +56,8 @@ function Copyright() {
 function WidescreenBar(position: Point) {
   useType(WidescreenBar);
 
+  useZIndex(1);
+
   const size = new Point(screenSize.x, 32);
 
   const geometry = useNewComponent(() =>
@@ -76,6 +79,8 @@ function lerp(v0: number, v1: number, t: number) {
 
 function Star() {
   useType(Star);
+
+  useZIndex(2);
 
   const star = useNewComponent(() => Aseprite(introStar));
 
@@ -148,7 +153,7 @@ function GameFreakText() {
   );
 
   function starPos(tilesFromLeft: number) {
-    return new Point(tilesFromLeft * 8 - 4, sprite.size.y);
+    return new Point(tilesFromLeft * 8 - 4, sprite.size.y + 4);
   }
 
   const starPositionTimer = useNewComponent(Timer);
@@ -179,7 +184,7 @@ function GameFreakText() {
         );
 
         starPositionIndex++;
-        starPositionTimer.setToTimeFromNow(600);
+        starPositionTimer.setToTimeFromNow(700);
       }
     }
   });
@@ -187,6 +192,8 @@ function GameFreakText() {
 
 function GameFreakStars(position: Point) {
   useType(GameFreakStars);
+
+  const screen = Polygon.rectangle(screenSize);
 
   const sprite = useNewComponent(() => Aseprite(gameFreakStars));
   sprite.currentAnim.loop = false;
@@ -209,10 +216,16 @@ function GameFreakStars(position: Point) {
   const moveDown = useNewComponent(Timer);
   moveDown.setToTimeFromNow(100);
 
+  const { destroy } = useDestroy();
+
   useUpdate(() => {
     if (moveDown.hasReachedSetTime()) {
       geometry.position.addYMutate(1);
       moveDown.setToTimeFromNow(100);
+    }
+
+    if (!screen.containsPoint(geometry.position)) {
+      destroy();
     }
   });
 
