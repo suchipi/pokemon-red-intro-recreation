@@ -16,5 +16,9 @@ export default function Root() {
 
   useNewComponent(CustomDrawOrder);
 
-  useChild(Intro);
+  const intro = useChild(() =>
+    Intro(() => {
+      intro.rootComponent.destroy();
+    })
+  );
 }

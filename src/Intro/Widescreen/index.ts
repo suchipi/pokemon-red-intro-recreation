@@ -11,12 +11,14 @@ import screenSize from "../../screen-size";
 import palette from "../../palette";
 import useZIndex from "../../useZIndex";
 
+export const WIDESCREEN_BAR_HEIGHT = 32;
+
 function WidescreenBar(position: Point) {
   useType(WidescreenBar);
 
   useZIndex(1);
 
-  const size = new Point(screenSize.x, 32);
+  const size = new Point(screenSize.x, WIDESCREEN_BAR_HEIGHT);
 
   const geometry = useNewComponent(() =>
     Geometry({
@@ -34,6 +36,12 @@ function WidescreenBar(position: Point) {
 export default function Widescreen() {
   useType(Widescreen);
 
-  useChild(() => WidescreenBar(new Point(screenSize.x / 2, 16)));
-  useChild(() => WidescreenBar(new Point(screenSize.x / 2, screenSize.y - 16)));
+  useChild(() =>
+    WidescreenBar(new Point(screenSize.x / 2, WIDESCREEN_BAR_HEIGHT / 2))
+  );
+  useChild(() =>
+    WidescreenBar(
+      new Point(screenSize.x / 2, screenSize.y - WIDESCREEN_BAR_HEIGHT / 2)
+    )
+  );
 }

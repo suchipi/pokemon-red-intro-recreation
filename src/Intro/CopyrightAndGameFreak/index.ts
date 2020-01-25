@@ -20,6 +20,7 @@ import gameFreakStars from "./game-freak-stars.aseprite";
 import screenSize from "../../screen-size";
 import useZIndex from "../../useZIndex";
 import Widescreen from "../Widescreen";
+import lerp from "../../lerp";
 
 export function Blank() {
   useType(Blank);
@@ -46,10 +47,6 @@ export function Copyright() {
 
   const { destroy } = useDestroy();
   return { destroy };
-}
-
-function lerp(v0: number, v1: number, t: number) {
-  return v0 * (1 - t) + v1 * t;
 }
 
 function Star() {

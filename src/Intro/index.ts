@@ -1,15 +1,11 @@
 import {
   useType,
-  useDraw,
   useNewComponent,
   useChild,
   useUpdate,
   Animation,
   AnimationFrame,
-  Timer,
-  Label,
-  SystemFont,
-  useDebugOverlayDrawTime,
+  useDestroy,
 } from "@hex-engine/2d";
 
 import {
@@ -19,47 +15,49 @@ import {
   WidescreenGameFreak,
 } from "./CopyrightAndGameFreak";
 import Fight from "./Fight";
+import useFadeToWhite from "../useFadeToWhite";
 
-export default function Intro() {
+export default function Intro(onDone: () => void) {
   useType(Intro);
 
+  const fadeToWhite = useFadeToWhite(400);
+
   const screens = useNewComponent(() =>
-    Animation<() => { destroy: () => void }>(
+    Animation<[Function, () => { destroy: () => void }]>(
       [
-        new AnimationFrame(Blank, { duration: 1000 }),
-        new AnimationFrame(Copyright, { duration: 3000 }),
-        new AnimationFrame(WidescreenBlank, { duration: 1000 }),
-        new AnimationFrame(WidescreenGameFreak, { duration: 7000 }),
-        new AnimationFrame(Fight, { duration: 1000 }),
+        new AnimationFrame([Blank, Blank], { duration: 1000 }),
+        new AnimationFrame([Copyright, Copyright], { duration: 3000 }),
+        new AnimationFrame([WidescreenBlank, WidescreenBlank], {
+          duration: 1000,
+        }),
+        new AnimationFrame([WidescreenGameFreak, WidescreenGameFreak], {
+          duration: 7000,
+        }),
+        new AnimationFrame(
+          [
+            Fight,
+            () =>
+              Fight(() => {
+                fadeToWhite.fade(onDone);
+              }),
+          ],
+          { duration: 1000 }
+        ),
       ],
       { loop: false }
     )
   );
-  let currentScreen = useChild(() => screens.currentFrame.data());
+  let currentScreen = useChild(() => screens.currentFrame.data[1]());
 
   useUpdate(() => {
-    if (currentScreen.rootComponent.type !== screens.currentFrame.data) {
+    if (currentScreen.rootComponent.type !== screens.currentFrame.data[0]) {
       currentScreen.rootComponent.destroy();
-      currentScreen = useChild(() => screens.currentFrame.data());
+      currentScreen = useChild(() => screens.currentFrame.data[1]());
     }
   });
 
   screens.play();
 
-  const font = useNewComponent(() =>
-    SystemFont({ name: "Arial", size: 12, color: "red" })
-  );
-  const label = useNewComponent(() => Label({ text: "0", font }));
-  const elapsedTime = useNewComponent(Timer);
-
-  useUpdate(() => {
-    const time = -elapsedTime.distanceFromSetTime();
-
-    label.text = (time / 1000).toFixed(2);
-  });
-
-  useDebugOverlayDrawTime();
-  useDraw((context) => {
-    label.draw(context);
-  });
+  const { destroy } = useDestroy();
+  return { destroy };
 }
