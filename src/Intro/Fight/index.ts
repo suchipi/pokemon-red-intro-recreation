@@ -7,7 +7,6 @@ import {
   useUpdate,
   Geometry,
   Polygon,
-  useDestroy,
   Point,
   Animation,
   AnimationFrame,
@@ -614,7 +613,4 @@ export default function Fight(onAnimationEnd: () => void) {
       nidorinoPos.mutateInto(frameData.nidorino.pos);
     }
   });
-
-  const { destroy } = useDestroy();
-  return { destroy };
 }

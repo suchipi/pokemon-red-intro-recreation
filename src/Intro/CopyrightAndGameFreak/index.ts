@@ -24,9 +24,6 @@ import lerp from "../../lerp";
 
 export function Blank() {
   useType(Blank);
-
-  const { destroy } = useDestroy();
-  return { destroy };
 }
 
 export function Copyright() {
@@ -44,9 +41,6 @@ export function Copyright() {
   useDraw((context) => {
     screen.draw(context);
   });
-
-  const { destroy } = useDestroy();
-  return { destroy };
 }
 
 function Star() {
@@ -234,9 +228,6 @@ function GameFreakImage() {
 export function WidescreenBlank() {
   useType(WidescreenBlank);
   useChild(Widescreen);
-
-  const { destroy } = useDestroy();
-  return { destroy };
 }
 
 export function WidescreenGameFreak() {
@@ -246,7 +237,4 @@ export function WidescreenGameFreak() {
   useChild(GameFreakImage);
   useChild(GameFreakText);
   useChild(Star);
-
-  const { destroy } = useDestroy();
-  return { destroy };
 }

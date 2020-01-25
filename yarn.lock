@@ -824,13 +824,13 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
-"@hex-engine/2d@^0.1.10":
-  version "0.1.10"
-  resolved "https://registry.yarnpkg.com/@hex-engine/2d/-/2d-0.1.10.tgz#ca8feb512881d39ccfe7c2ac28223afca24b86ae"
-  integrity sha512-zOzayIVyorQhFEjj8wWey+rycQbvsDrfG9/buZrtkxbFsLxlATUJ53nMlT6rdwUv37icvM6CWICx0qeYFqsmug==
+"@hex-engine/2d@^0.1.11":
+  version "0.1.11"
+  resolved "https://registry.yarnpkg.com/@hex-engine/2d/-/2d-0.1.11.tgz#a6303033c02bdee6ae7e571aba37947e2149feb9"
+  integrity sha512-FZKfpYGuL3vaoCf0yhobo713tZ4o+g/nCCw+/zCTXcSd5dbzEv35uWY/RXX0NKly/X1RYeQdzbHpF0wQbkijaA==
   dependencies:
-    "@hex-engine/core" "^0.1.1"
-    "@hex-engine/inspector" "^0.1.3"
+    "@hex-engine/core" "^0.1.2"
+    "@hex-engine/inspector" "^0.1.4"
     "@types/matter-js" "^0.10.7"
     layout-bmfont-text "^1.3.4"
     matter-js "^0.14.2"
@@ -838,19 +838,19 @@
     modal-synthesis "^0.1.2"
     poly-decomp "^0.3.0"
 
-"@hex-engine/core@^0.1.1":
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/@hex-engine/core/-/core-0.1.1.tgz#7c2f7453264d3b01e61a43e56da803fa7dc0c9dc"
-  integrity sha512-HmjC+LYU+9l4j0awnnEG3+3N6th1UNPe+NzzOIKNE76/HdPWb006JcYiFGLNv5R3yY3bCtHG5mkw9edlEA9ytA==
+"@hex-engine/core@^0.1.2":
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/@hex-engine/core/-/core-0.1.2.tgz#a617f008731075036c9c8b0d55ac770862a6a568"
+  integrity sha512-6RK9Dc6fSLIIpS5UD3u2MXEsiIrcSRPYUaIAZhEvVxMzqCgzEtMfojJ6xSO0fiRDMaKGBXBnCAi4NIi8c5mzmA==
   dependencies:
     concubine "^1.0.2"
 
-"@hex-engine/inspector@^0.1.3":
-  version "0.1.3"
-  resolved "https://registry.yarnpkg.com/@hex-engine/inspector/-/inspector-0.1.3.tgz#8944ec34329bdc1c87a9976f9b28bafcc0fe68c6"
-  integrity sha512-eDQESoFBagj/vTCbRHOuFFZWghy7k13Aa4ts/3IsiUVpTh27nBWxxm3ZFrPWzIfBSY24kHjG8umhkQUvxna+3Q==
+"@hex-engine/inspector@^0.1.4":
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/@hex-engine/inspector/-/inspector-0.1.4.tgz#2c72105ed678da783bc17acdda31d3e67eb22da6"
+  integrity sha512-y92/CnUcq3O+hjn2PPncNoDWsBaetPJ2eBjEMvivPsx+iNDRUDMMPBh4ItB8Oz4eIjoKyY9DCzobqTi6HQouKg==
   dependencies:
-    "@hex-engine/core" "^0.1.1"
+    "@hex-engine/core" "^0.1.2"
     lodash.debounce "^4.0.8"
     react "^16.12.0"
     react-dom "^16.12.0"

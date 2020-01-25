@@ -5,7 +5,6 @@ import {
   useUpdate,
   Animation,
   AnimationFrame,
-  useDestroy,
 } from "@hex-engine/2d";
 
 import {
@@ -23,7 +22,7 @@ export default function Intro(onDone: () => void) {
   const fadeToWhite = useFadeToWhite(400);
 
   const screens = useNewComponent(() =>
-    Animation<[Function, () => { destroy: () => void }]>(
+    Animation<[Function, Function]>(
       [
         new AnimationFrame([Blank, Blank], { duration: 1000 }),
         new AnimationFrame([Copyright, Copyright], { duration: 3000 }),
@@ -51,13 +50,10 @@ export default function Intro(onDone: () => void) {
 
   useUpdate(() => {
     if (currentScreen.rootComponent.type !== screens.currentFrame.data[0]) {
-      currentScreen.rootComponent.destroy();
+      currentScreen.destroy();
       currentScreen = useChild(() => screens.currentFrame.data[1]());
     }
   });
 
   screens.play();
-
-  const { destroy } = useDestroy();
-  return { destroy };
 }

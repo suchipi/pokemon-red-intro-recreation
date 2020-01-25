@@ -18,7 +18,7 @@ export default function Root() {
 
   const intro = useChild(() =>
     Intro(() => {
-      intro.rootComponent.destroy();
+      intro.destroy();
     })
   );
 }
