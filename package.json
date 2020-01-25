@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
-    "@hex-engine/2d": "^0.1.8",
+    "@hex-engine/2d": "^0.1.9",
     "safety-match": "^0.3.0"
   },
   "devDependencies": {

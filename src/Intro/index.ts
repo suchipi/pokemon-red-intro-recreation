@@ -15,12 +15,15 @@ import {
   Label,
   SystemFont,
   useDebugOverlayDrawTime,
+  useCallbackAsCurrent,
 } from "@hex-engine/2d";
 import introCopyright from "./intro-copyright.aseprite";
 import introStar from "./intro-star.aseprite";
 import gameFreakImage from "./game-freak-image.aseprite";
 import gameFreakText from "./game-freak-text.aseprite";
+import gameFreakStars from "./game-freak-stars.aseprite";
 import screenSize from "../screen-size";
+import palette from "../palette";
 
 function Blank() {
   useType(Blank);
@@ -62,7 +65,7 @@ function WidescreenBar(position: Point) {
   );
 
   useDraw((context) => {
-    context.fillStyle = "black";
+    context.fillStyle = palette.BLACK;
     geometry.shape.draw(context, "fill");
   });
 }
@@ -123,38 +126,145 @@ function Star() {
   );
 }
 
-function GameFreakLogo() {
-  useType(GameFreakLogo);
+function GameFreakText() {
+  useType(GameFreakText);
 
-  const imageSprite = useNewComponent(() => Aseprite(gameFreakImage));
-  const textSprite = useNewComponent(() => Aseprite(gameFreakText));
+  const sprite = useNewComponent(() => Aseprite(gameFreakText));
+  sprite.currentAnim.loop = false;
+  sprite.currentAnim.play();
 
-  const geometry = useNewComponent(() =>
+  useNewComponent(() =>
     Geometry({
-      shape: new Polygon([new Point(0, 0)]),
-      position: screenSize.divide(2),
+      shape: Polygon.rectangle(sprite.size),
+      position: screenSize.divide(2).addYMutate(8),
     })
   );
 
-  useDraw(() => {});
+  useDraw(
+    (context) => {
+      sprite.draw(context);
+    },
+    { roundToNearestPixel: true }
+  );
+
+  function starPos(tilesFromLeft: number) {
+    return new Point(tilesFromLeft * 8 - 4, sprite.size.y);
+  }
+
+  const starPositionTimer = useNewComponent(Timer);
+  starPositionTimer.setToTimeFromNow(0);
+  starPositionTimer.disable();
+
+  sprite.currentAnim.frames[
+    sprite.currentAnim.frames.length - 1
+  ].onFrame = useCallbackAsCurrent(() => {
+    starPositionTimer.enable();
+  });
+
+  let starPositionIndex = 0;
+  const starPositions = [
+    [1, 3, 6, 10],
+    [2, 4, 7, 9],
+    [1.5, 4.5, 5.5, 7.5],
+    [2.5, 6.5, 8.5, 9.5],
+  ];
+
+  useUpdate(() => {
+    if (starPositionTimer.isEnabled && starPositionTimer.hasReachedSetTime()) {
+      const currentStarPositions = starPositions[starPositionIndex];
+
+      if (currentStarPositions) {
+        currentStarPositions.forEach((loc) =>
+          useChild(() => GameFreakStars(starPos(loc)))
+        );
+
+        starPositionIndex++;
+        starPositionTimer.setToTimeFromNow(600);
+      }
+    }
+  });
 }
 
-function Widescreen() {
-  useType(Widescreen);
+function GameFreakStars(position: Point) {
+  useType(GameFreakStars);
+
+  const sprite = useNewComponent(() => Aseprite(gameFreakStars));
+  sprite.currentAnim.loop = false;
+  sprite.currentAnim.play();
+
+  sprite.currentAnim.frames[
+    sprite.currentAnim.frames.length - 1
+  ].onFrame = () => {
+    sprite.currentAnim = sprite.animations.Loop;
+    sprite.currentAnim.play();
+  };
+
+  const geometry = useNewComponent(() =>
+    Geometry({
+      shape: Polygon.rectangle(sprite.size),
+      position,
+    })
+  );
+
+  const moveDown = useNewComponent(Timer);
+  moveDown.setToTimeFromNow(100);
+
+  useUpdate(() => {
+    if (moveDown.hasReachedSetTime()) {
+      geometry.position.addYMutate(1);
+      moveDown.setToTimeFromNow(100);
+    }
+  });
+
+  useDraw(
+    (context) => {
+      sprite.draw(context);
+    },
+    { roundToNearestPixel: true }
+  );
+}
+
+function GameFreakImage() {
+  useType(GameFreakImage);
+
+  const sprite = useNewComponent(() => Aseprite(gameFreakImage));
+  sprite.currentAnim.loop = false;
+  sprite.currentAnim.play();
+
+  useNewComponent(() =>
+    Geometry({
+      shape: Polygon.rectangle(sprite.size),
+      position: screenSize.divide(2).subtractYMutate(8),
+    })
+  );
+
+  useDraw(
+    (context) => {
+      sprite.draw(context);
+    },
+    { roundToNearestPixel: true }
+  );
+}
+
+function WidescreenBlank() {
+  useType(WidescreenBlank);
 
   useChild(() => WidescreenBar(new Point(screenSize.x / 2, 16)));
   useChild(() => WidescreenBar(new Point(screenSize.x / 2, screenSize.y - 16)));
 
-  const starAppear = useNewComponent(Timer);
-  starAppear.setToTimeFromNow(1000);
+  const { destroy } = useDestroy();
+  return { destroy };
+}
 
-  let hasSpawnedStar = false;
-  useUpdate(() => {
-    if (!hasSpawnedStar && starAppear.hasReachedSetTime()) {
-      useChild(Star);
-      hasSpawnedStar = true;
-    }
-  });
+function WidescreenGameFreak() {
+  useType(WidescreenGameFreak);
+
+  useChild(() => WidescreenBar(new Point(screenSize.x / 2, 16)));
+  useChild(() => WidescreenBar(new Point(screenSize.x / 2, screenSize.y - 16)));
+
+  useChild(GameFreakImage);
+  useChild(GameFreakText);
+  useChild(Star);
 
   const { destroy } = useDestroy();
   return { destroy };
@@ -166,9 +276,10 @@ export default function Intro() {
   const screens = useNewComponent(() =>
     Animation<() => { destroy: () => void }>(
       [
-        // new AnimationFrame(Blank, { duration: 1000 }),
-        // new AnimationFrame(Copyright, { duration: 3000 }),
-        new AnimationFrame(Widescreen, { duration: 3000 }),
+        new AnimationFrame(Blank, { duration: 1000 }),
+        new AnimationFrame(Copyright, { duration: 3000 }),
+        new AnimationFrame(WidescreenBlank, { duration: 1000 }),
+        new AnimationFrame(WidescreenGameFreak, { duration: 3000 }),
       ],
       { loop: false }
     )
