@@ -18,6 +18,7 @@ import {
   WidescreenBlank,
   WidescreenGameFreak,
 } from "./CopyrightAndGameFreak";
+import Fight from "./Fight";
 
 export default function Intro() {
   useType(Intro);
@@ -28,7 +29,8 @@ export default function Intro() {
         new AnimationFrame(Blank, { duration: 1000 }),
         new AnimationFrame(Copyright, { duration: 3000 }),
         new AnimationFrame(WidescreenBlank, { duration: 1000 }),
-        new AnimationFrame(WidescreenGameFreak, { duration: 3000 }),
+        new AnimationFrame(WidescreenGameFreak, { duration: 7000 }),
+        new AnimationFrame(Fight, { duration: 1000 }),
       ],
       { loop: false }
     )
